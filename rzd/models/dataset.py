@@ -34,3 +34,14 @@ class RZDDataset(Dataset):
     def _load_mask(mask_path: Path) -> np.ndarray:
         transorm_mask = np.vectorize(lambda x: MAP_MASKS[x])
         return transorm_mask(cv2.imread(str(mask_path), cv2.IMREAD_GRAYSCALE))
+
+
+class TestRZD(RZDDataset):
+    def __init__(self, image_paths: List[Path] = TEST_IMAGES):
+        super().__init__(image_paths)
+
+    def __getitem__(self, idx: int) -> torch.Tensor:
+        image_path = self.image_paths[idx]
+        image_name = image_path.split("/")[-1]
+        image = self._load_image(image_path)
+        return image, image_name
