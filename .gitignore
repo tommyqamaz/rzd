@@ -21,3 +21,4 @@ cython_debug/
 /tests
 rzd/data
 **/weights
+3e_512_unetpp_imn.ckpt
