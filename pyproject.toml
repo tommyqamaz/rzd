@@ -9,6 +9,11 @@ python = "^3.8"
 numpy = "^1.23.1"
 opencv-python = "^4.6.0"
 torch = "^1.12.0"
+albumentations = "^1.2.1"
+tqdm = "^4.64.0"
+pytorch-lightning = "^1.6.5"
+segmentation-models-pytorch = "^0.2.1"
+wandb = "^0.12.21"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
