@@ -20,3 +20,4 @@ cython_debug/
 
 /tests
 rzd/data
+**/weights
