@@ -21,17 +21,24 @@ class RZDDataModule(pl.LightningDataModule):
     def _init_transforms(self) -> Tuple[Callable, Callable]:
         train_transforms = [
             A.Resize(*self.hparams.input_shape),
-            A.augmentations.transforms.Normalize(
-                mean=(0.5, 0.5, 0.5), std=(0.5, 0.5, 0.5)
+            A.OneOf(
+                [
+                    A.RandomFog(),
+                    A.RandomSunFlare(src_radius=100),
+                    A.NoOp(),
+                    A.RandomShadow(),
+                ]
             ),
+            A.HorizontalFlip(p=0.5),
+            A.OpticalDistortion(),
+            A.RandomBrightnessContrast(),
+            A.Normalize(mean=(0.485, 0.456, 0.406), std=(0.229, 0.224, 0.225)),
             ToTensorV2(),
         ]
 
         val_transforms = [
-            A.Resize(*self.hparams.input_shape),
-            A.augmentations.transforms.Normalize(
-                mean=(0.5, 0.5, 0.5), std=(0.5, 0.5, 0.5)
-            ),
+            A.Resize((512, 512)),
+            A.Normalize(mean=(0.485, 0.456, 0.406), std=(0.229, 0.224, 0.225)),
             ToTensorV2(),
         ]
 
